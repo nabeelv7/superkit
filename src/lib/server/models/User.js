@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
@@ -16,6 +16,15 @@ const userSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    page: {
+        type: String,
+        lowercase: true,
+        required: true,
+        maxlength: 20,
+    },
+    links: {
+        type: [Link]
     }
 })
 
