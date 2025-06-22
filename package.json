@@ -24,6 +24,7 @@
 		"@auth/sveltekit": "^1.9.2",
 		"@fontsource-variable/dm-sans": "^5.2.6",
 		"mongodb": "^6.17.0",
-		"mongoose": "^8.16.0"
+		"mongoose": "^8.16.0",
+		"svelte-french-toast": "^1.2.0"
 	}
 }

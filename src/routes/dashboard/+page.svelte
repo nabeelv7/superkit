@@ -1,8 +1,19 @@
-<script></script>
+<script>
+    import { enhance } from "$app/forms";
+    import toast from "svelte-french-toast";
+
+    let { form } = $props();
+
+    $effect(() => {
+        if (form?.error) {
+            toast.error(form.error);
+        }
+    });
+</script>
 
 <div class="flex flex-col sm:min-w-md gap-2">
     <p>Enter your page url:</p>
-    <form class="w-full" method="POST">
+    <form class="w-full" method="POST" use:enhance>
         <label class="input w-full">
             /
             <input name="page" type="text" class="w-full" placeholder="alex" />

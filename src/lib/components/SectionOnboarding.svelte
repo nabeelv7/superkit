@@ -1,7 +1,9 @@
 <script>
     import { page } from "$app/state";
+    import { signOut } from "@auth/sveltekit/client";
 </script>
 
+<button class="btn btn-error" onclick={() => signOut()}>Logout</button>
 <ul class="steps">
     <li class="step step-primary md:w-50 sm:w-30 w-20">
         <span class="step-icon">👋</span>

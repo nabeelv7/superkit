@@ -1,5 +1,5 @@
 const state = $state({
-    baseUrl: "http://localhost:3000"
+    iframeUrl: "/nabeel" 
 })
 
 export default state;
