@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 export const visitSchema = mongoose.Schema({
-    country: {
-        type: String,
-        trim: true,
+    location: {
+        country: { type: String, trim: true },
+        city: { type: String, trim: true },
+        flag: { type: String, trim: true },
+        isEU: { type: Boolean, default: false },
     },
     referrer: {
         type: String,

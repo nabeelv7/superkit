@@ -1,7 +1,20 @@
+// Made with 🧡 and 🍩 by Nabeel
+console.log("Hi from Nabeel! 👋")
+
 const ua = navigator.userAgent;
 
-const getCountry = () => {
-    return "USA";
+const getLocation = async () => {
+    const res = await fetch("https://ipwho.is/");
+    const data = await res.json();
+
+    const locationInfo = {
+        country: data.country,
+        city: data.city,
+        flag: data.flag,
+        isEU: data.is_eu,
+    };
+
+    return locationInfo;
 }
 
 const getReferrer = () => {
@@ -50,19 +63,28 @@ const getCurrentPage = () => {
     return window.location.pathname;
 }
 
+// check for bots
+const isBotUA = () => {
+    const botPattern = /bot|crawl|slurp|spider|crawling|vercelbot|headless/i;
+    return botPattern.test(navigator.userAgent);
+};
+
+
 // post the initial data
-async function postData() {
+async function postInitialData() {
     try {
+        const location = await getLocation();
         const visit = {
-            country: getCountry(),
+            location,
             referrer: getReferrer(),
             browser: getBrowser(),
             device: getDevice(),
             OS: getOS(),
-            pages: [getCurrentPage()],
+            pages: [],
             entryPage: getEntryPage(),
         }
 
+        console.log(visit)
         const res = await fetch("/api/analytics", {
             method: "POST",
             headers: {
@@ -78,10 +100,6 @@ async function postData() {
     }
 }
 
-sessionStorage.setItem('visiting', "true");
-if (!sessionStorage.getItem("visiting")) {
-    postData();
-}
 
 // post the new page to /api/analytics/update-pages, where the new page is taken and added to the visitor pages array
 const updatePages = async () => {
@@ -105,3 +123,41 @@ const updatePages = async () => {
         console.error("Failed to update pages! 😩");
     }
 };
+
+
+// when user clicks a different link, send that link to /api/analytics/exit-link
+const sendExitLink = () => {
+    document.addEventListener("click", (e) => {
+        let exitLink;
+        const link = e.target.closest("a");
+        if (
+            link &&
+            link.href &&
+            !link.href.startsWith(window.location.origin)
+        ) {
+            exitLink = link.href;
+            navigator.sendBeacon(
+                "/api/analytics/exit-link",
+                JSON.stringify({ exitLink }),
+            );
+        }
+    });
+}
+
+// initialize the script
+const init = async () => {
+    if (isBotUA() || navigator.webdriver) {
+        console.log("Bot detected — skipping analytics");
+        return;
+    }
+
+    if (!sessionStorage.getItem("visiting")) {
+        await postInitialData();
+        sessionStorage.setItem('visiting', "true");
+    }
+
+    updatePages();
+    sendExitLink();
+}
+
+init(); // call the main function
