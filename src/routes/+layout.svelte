@@ -3,7 +3,7 @@
 	import "../app.css";
 	import { onMount } from "svelte";
 
-	let { data, children } = $props();
+	let { data,	 children } = $props();
 	onMount(() => {
 		console.log("layout.svelte", data.session);
 	});

@@ -1,6 +1,6 @@
 <script></script>
 
-<div class="flex flex-col min-w-md gap-2">
+<div class="flex flex-col sm:min-w-md gap-2">
     <p>Enter your page url:</p>
     <form class="w-full" method="POST">
         <label class="input w-full">
