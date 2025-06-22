@@ -2,6 +2,7 @@
 console.log("Hi from Nabeel! 👋")
 
 const ua = navigator.userAgent;
+const id = crypto.randomUUID();
 
 const getLocation = async () => {
     const res = await fetch("https://ipwho.is/");
@@ -10,7 +11,7 @@ const getLocation = async () => {
     const locationInfo = {
         country: data.country,
         city: data.city,
-        flag: data.flag,
+        flag: data.flag.img,
         isEU: data.is_eu,
     };
 
@@ -75,6 +76,7 @@ async function postInitialData() {
     try {
         const location = await getLocation();
         const visit = {
+            crypto: id,
             location,
             referrer: getReferrer(),
             browser: getBrowser(),

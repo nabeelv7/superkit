@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
-export const visitSchema = mongoose.Schema({
+const visitSchema = mongoose.Schema({
+    crypto: {
+        type: String,
+    },
     location: {
         country: { type: String, trim: true },
         city: { type: String, trim: true },
@@ -32,7 +35,10 @@ export const visitSchema = mongoose.Schema({
     },
     exitLink: {
         type: String,
-    }
+    },
+}, {
+    timestamps: true,
 })
 
-export default mongoose.models.Visit || mongoose.model("Visit", visitSchema)
+const Visit = mongoose.models.Visit || mongoose.model("Visit", visitSchema);
+export default Visit;
