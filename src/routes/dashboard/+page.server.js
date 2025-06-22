@@ -38,16 +38,12 @@ export const actions = {
             user.page = page;
             await user.save();
 
-            return {
-                status: 200,
-            }
+            redirect(303, "/dashboard/pfp");
         } catch (err) {
             return {
                 status: 500,
                 error: "Internal server error. Please try again."
             }
-        } finally {
-            redirect(303, "/dashboard/pfp");
         }
     }
 };
