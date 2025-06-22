@@ -18,7 +18,7 @@ export const linkSchema = new mongoose.Schema({
         }
     },
     userId: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }
 })

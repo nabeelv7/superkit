@@ -22,9 +22,11 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         required: true,
         maxlength: 20,
+        unique: true,
     },
     links: {
-        type: [Link]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Link",
     }
 })
 
