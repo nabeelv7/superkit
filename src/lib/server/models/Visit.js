@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 export const visitSchema = mongoose.Schema({
-    referrer: {
+    country: {
         type: String,
         trim: true,
     },
-    country: {
+    referrer: {
         type: String,
         trim: true,
     },

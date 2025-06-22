@@ -4,42 +4,16 @@
     import { onMount } from "svelte";
 
     onMount(() => {
-        const ua = navigator.userAgent;
-        console.log(ua)
-
-        // initial function
-        const getBrowser = () => {
-            if (ua.includes("Edg/")) return "Edge";
-            if (ua.includes("OPR/") || ua.includes("Opera")) return "Opera";
-            if (ua.includes("Chrome/") && !ua.includes("Edg/")) return "Chrome";
-            if (ua.includes("Safari/") && !ua.includes("Chrome"))
-                return "Safari";
-            if (ua.includes("Firefox/")) return "Firefox";
-            if (ua.includes("MSIE") || ua.includes("Trident/"))
-                return "Internet Explorer";
-
-            return "Unknown";
+        const getEntryPage = () => {
+            if (!sessionStorage.getItem("entrypage")) {
+                const path = window.location.pathname;
+                sessionStorage.setItem("entrypage", path);
+                return path;
+            }
+            return sessionStorage.getItem("entrypage");
         };
 
-        // initial function
-        const getDevice = () => {
-            if (/Mobi|Android/i.test(ua)) return "Mobile";
-            if (/Tablet|iPad/i.test(ua)) return "Tablet";
-            return "Desktop";
-        };
-
-        // initial function
-        function getOS() {
-            if (/Windows NT/.test(ua)) return "Windows";
-            if (/Mac OS X/.test(ua)) return "MacOS";
-            if (/Linux/.test(ua)) return "Linux";
-            if (/Android/.test(ua)) return "Android";
-            if (/iPhone|iPad|iPod/.test(ua)) return "iOS";
-
-            return "Unknown";
-        }
-
-        console.log(getBrowser(), getDevice(), getOS());
+        console.log(getEntryPage());
     });
 </script>
 
